@@ -1,7 +1,6 @@
-const app = require('../src/app')
+'use strict';
 
-// Não está sendo usado
-const restify = require('restify')
+const app = require('../src/app')
 
 const server = app.createServer({
     name: 'API',
