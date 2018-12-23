@@ -2,7 +2,10 @@
 
 const app = require('../src/app')
 
-const server = app.createServer(app)
+const server = app.createServer({
+    name: 'API',
+    version: '1.0'
+})
 
 server.use(app.plugins.acceptParser(server.acceptable))
 server.use(app.plugins.queryParser())

@@ -2,10 +2,7 @@
 
 const restify = require('restify')
 
-const app = restify.createServer({
-    name: 'API',
-    version: '1.0'
-})
+const app = restify
 
 // Não está sendo usado
 var knex = require('knex')({
