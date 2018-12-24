@@ -6,9 +6,9 @@ const app = restify.createServer({
     version: '1.0'
 })
 
-restify.use(app.plugins.acceptParser(restify.acceptable))
-restify.use(app.plugins.queryParser())
-restify.use(app.plugins.bodyParser())
+app.use(restify.plugins.acceptParser(app.acceptable))
+app.use(restify.plugins.queryParser())
+app.use(restify.plugins.bodyParser())
 
 // Não está sendo usado
 var knex = require('knex')({
