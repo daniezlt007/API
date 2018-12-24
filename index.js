@@ -1,4 +1,11 @@
-/*'use strict';
+/*
+
+
+NÃO ESTÁ SENDO USADO
+
+
+
+'use strict';
 
 const restify = require('restify')
 const errors = require('restify-errors')
