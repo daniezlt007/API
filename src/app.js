@@ -1,6 +1,14 @@
 'use strict';
 
-const app = require('restify')
+const restify = require('restify')
+const app = restify.createServer({
+    name: 'API',
+    version: '1.0'
+})
+
+restify.use(app.plugins.acceptParser(restify.acceptable))
+restify.use(app.plugins.queryParser())
+restify.use(app.plugins.bodyParser())
 
 // Não está sendo usado
 var knex = require('knex')({
