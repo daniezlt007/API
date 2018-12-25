@@ -15,7 +15,8 @@
     "knex": "^0.16.3",
     "restify": "^7.3.0",
     "restify-cors-middleware": "^1.1.1",
-    "restify-errors": "^6.1.1"
+    "restify-errors": "^6.1.1",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {}
 }
