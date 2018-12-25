@@ -4,20 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
+    "start": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.2",
+    "bcrypt": "^3.0.3",
     "jsonwebtoken": "^8.4.0",
     "knex": "^0.16.3",
-    "mysql": "^2.16.0",
     "restify": "^7.3.0",
+    "restify-cors-middleware": "^1.1.1",
     "restify-errors": "^6.1.1"
   },
-  "devDependencies": {
-    "restify-cors-middleware": "^1.1.1"
-  }
+  "devDependencies": {}
 }
