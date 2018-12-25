@@ -16,5 +16,8 @@
     "mysql": "^2.16.0",
     "restify": "^7.3.0",
     "restify-errors": "^6.1.1"
+  },
+  "devDependencies": {
+    "restify-cors-middleware": "^1.1.1"
   }
 }
