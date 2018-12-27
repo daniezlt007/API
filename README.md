@@ -13,4 +13,4 @@
 
 ### Sugestão
 
-Utilize o Postman para testar suas chamadas. [https://www.getpostman.com/](https://www.getpostman.com/)
+Utilize o Postman para testar suas chamadas. [https://www.getpostman.com](https://www.getpostman.com)
