@@ -3,7 +3,7 @@
 const cors = require('./cors')
 const restify = require('restify')
 const server = restify.createServer()
-const routes = require('../src/http/routes')
+const routes = require('../src/routes/routes')
 
 server.pre(cors.preflight)
 server.use(cors.actual)

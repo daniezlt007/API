@@ -1,5 +1,6 @@
 'use strict';
 
+require('dotenv').config()
 const server = require('../bin/server')
 
-server.listen(8000, '127.0.0.1')
+server.listen(process.env.PORT)
