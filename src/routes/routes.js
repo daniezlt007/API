@@ -1,6 +1,6 @@
 'use strict';
 
-const userController = require('../controllers/userController')
+const userController = require('../controllers/authController')
 
 const routes = (server) => {
     // Principal
@@ -10,7 +10,7 @@ const routes = (server) => {
     })
 
     // Usuário
-    //server.post('/user', userController.post)
+    //server.post('/auth', userController.post)
 }
 
 module.exports = routes
