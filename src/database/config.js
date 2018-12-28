@@ -4,6 +4,9 @@ require('dotenv').config()
 
 module.exports = {
     connection: () => {
+        // Erro na conexão
+        console.log(process.env)
+
         const connection = require('knex')({
             client: 'mysql', // Usar MariaDB
             version: '5.7',
