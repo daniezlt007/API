@@ -1,6 +1,6 @@
 'use strict';
 
-const userController = require('../controllers/authController')
+const authController = require('../controllers/authController')
 
 const routes = (server) => {
     // Principal
@@ -9,8 +9,8 @@ const routes = (server) => {
         next()
     })
 
-    // Usuário
-    //server.post('/auth', userController.post)
+    // Autenticação
+    server.post('/login', authController.post)
 }
 
 module.exports = routes
