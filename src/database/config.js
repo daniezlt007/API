@@ -12,7 +12,7 @@ module.exports = {
             version: '5.7',
             connection: {
                 host: process.env.HOST,
-                user: process.env.USERNAME,
+                user: process.env.USER,
                 password: process.env.PASSWORD,
                 database: process.env.DATABASE
             }
