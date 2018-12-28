@@ -4,17 +4,14 @@ require('dotenv').config()
 
 module.exports = {
     connection: () => {
-        // Erro na conexão
-        console.log(process.env)
-
         const connection = require('knex')({
             client: 'mysql', // Usar MariaDB
             version: '5.7',
             connection: {
-                host: process.env.HOST,
-                user: process.env.USER,
-                password: process.env.PASSWORD,
-                database: process.env.DATABASE
+                host: process.env.DB_HOST,
+                user: process.env.DB_USER,
+                password: process.env.DB_PASSWORD,
+                database: process.env.DB_NAME
             }
         })
         return connection
