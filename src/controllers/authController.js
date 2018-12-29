@@ -1,10 +1,9 @@
 'use strict';
 
-const repository = require('../repositories/authRepository')
-const authService = require('../services/authService')
 const bcrypt = require('bcrypt')
-
-exports.post = async (req, res, next) => {
+const authService = require('../services/authService')
+const repository = require('../repositories/authRepository')
+exports.login = async (req, res, next) => {
     try {
         const saltRounds = 10
         bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
@@ -24,8 +23,14 @@ exports.post = async (req, res, next) => {
             return res.send({ message: "Telefone ou senha incorretos" })
         })
     } catch (e) {
-        return res.send({
-            message: e
-        })
+        return res.send({ message: "Erro: ", e })
     }
+}
+
+exports.register = async (req, res, next) => {
+    // TODO
+}
+
+exports.refresh = async (req, res, next) => {
+    // TODO
 }
