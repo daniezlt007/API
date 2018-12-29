@@ -1,8 +1,8 @@
 'use strict';
 
-const authService = require('../services/authService')
 const bcrypt = require('bcrypt')
 const repository = require('../repositories/authRepository')
+const authService = require('../services/authService')
 
 exports.login = async (req, res, next) => {
     try {
@@ -28,10 +28,10 @@ exports.login = async (req, res, next) => {
     }
 }
 
-exports.register = async (req, res, next) => {
-    // TODO
-}
-
 exports.refresh = async (req, res, next) => {
-    // TODO
+    try {
+        // TODO
+    } catch(e) {
+        return res.send({ message: "Erro: ", e })
+    }
 }

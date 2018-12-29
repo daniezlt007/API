@@ -1,6 +1,7 @@
 'use strict';
 
 const authController = require('../controllers/authController')
+//const userController = require('../controllers/userController')
 
 const routes = (server) => {
     // Principal
@@ -9,9 +10,11 @@ const routes = (server) => {
         next()
     })
 
+    // Cadastro
+    //server.post('/register', userController.register)
+
     // Autenticação
-    server.get('/login', authController.login)
-    server.post('/register', authController.register)
+    server.post('/login', authController.login)
     server.put('/refresh', authController.refresh)
 }
 
