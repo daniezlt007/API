@@ -2,7 +2,7 @@
 
 const db = require('../database/config')
 
-exports.auth = async (user) => {
+exports.login = async (user) => {
     const connection = await db.connection()
     let select = await connection.select('uuid', 'name', 'profile')
     .from('person')

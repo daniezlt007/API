@@ -1,19 +1,24 @@
 'use strict';
 
 const bcrypt = require('bcrypt')
-const repository = require('../repositories/authRepository')
+const repository = require('../repositories/userRepository')
+const uuid = require('uuid/v1')
 const authService = require('../services/authService')
 
-exports.login = async (req, res, next) => {
+exports.register = async (req, res, next) => {
     try {
         const saltRounds = 10
         bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
             const payload = {
+                uuid: uuid.apply(),
+                name: req.body.name,
+                nickname: req.body.nickname,
                 phone: req.body.phone,
+                email: req.body.email,
                 password: hash
             }
 
-            var user = await repository.login(payload)
+            var user = await repository.register(payload)
 
             if (user[0]) {
                 return res.send({
@@ -21,16 +26,8 @@ exports.login = async (req, res, next) => {
                     user: user[0]
                 })
             }
-            return res.send({ message: "Telefone ou senha incorretos" })
+            return res.send({ message: "Erro ao cadastrar" })
         })
-    } catch (e) {
-        return res.send({ message: "Erro: ", e })
-    }
-}
-
-exports.refresh = async (req, res, next) => {
-    try {
-        // TODO
     } catch(e) {
         return res.send({ message: "Erro: ", e })
     }
