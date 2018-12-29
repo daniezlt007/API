@@ -12,7 +12,7 @@ const routes = (server) => {
     // Autenticação
     server.post('/login', authController.login)
     server.post('/register', authController.register)
-    server.post('/refresh', authController.refresh)
+    server.put('/refresh', authController.refresh)
 }
 
 module.exports = routes
