@@ -1,8 +1,9 @@
 'use strict';
 
-const bcrypt = require('bcrypt')
 const authService = require('../services/authService')
+const bcrypt = require('bcrypt')
 const repository = require('../repositories/authRepository')
+
 exports.login = async (req, res, next) => {
     try {
         const saltRounds = 10
