@@ -2,33 +2,37 @@
 
 const bcrypt = require('bcrypt')
 const repository = require('../repositories/userRepository')
-const uuid = require('uuid/v1')
+const uuid = require('uuid/v4')
 const authService = require('../services/authService')
 
 exports.register = async (req, res, next) => {
     try {
+        var id = uuid('binary') //.replace(/-/g, '')
+        console.log('UUID GERADO ', id)
+
         const saltRounds = 10
-        bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
-            const user = {
-                uuid: uuid.apply(),
-                name: req.body.name,
-                nickname: req.body.nickname,
-                phone: req.body.phone,
-                email: req.body.email,
-                password: hash
-            }
+        const hash = await bcrypt.hash(req.body.password, saltRounds)
+        console.log('HASH GERADO ', hash)
 
-            var data = await repository.register(user)
+        const user = {
+            id: id,
+            name: req.body.name,
+            nickname: req.body.nickname,
+            phone: req.body.phone,
+            email: req.body.email,
+            password: hash
+        }
 
-            if (data[0]) {
-                return res.send({
-                    token: await authService.generateToken({ ...data[0] }),
-                    user: data[0]
-                })
-            }
-            return res.send({ message: 'Erro ao cadastrar' })
-        })
-    } catch(e) {
-        return res.send({ message: 'Erro: ', e })
+        var data = await repository.register(user)
+
+        if (data[0]) {
+            return res.send({
+                token: await authService.generateToken({ ...data[0] }),
+                user: data[0]
+            })
+        }
+        return res.send({ message: 'Erro ao cadastrar' })
+    } catch(error) {
+        return res.send({ message: 'Erro: ' + error })
     }
 }
