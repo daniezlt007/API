@@ -7,7 +7,7 @@ const authService = require('../services/authService')
 
 exports.register = async (req, res, next) => {
     try {
-        var id = uuid('binary')
+        var id = new Buffer.from(uuid().replace(/-/g, ''), 'hex')
         console.log('UUID GERADO ', id)
 
         const saltRounds = 10
@@ -18,6 +18,7 @@ exports.register = async (req, res, next) => {
             id: id,
             name: req.body.name,
             nickname: req.body.nickname,
+            profile: req.body.profile,
             phone: req.body.phone,
             email: req.body.email,
             password: hash
@@ -25,7 +26,7 @@ exports.register = async (req, res, next) => {
 
         var data = await repository.register(user)
 
-        if (data[0]) {
+        if (data[0] == 0) {
             return res.send({
                 token: await authService.generateToken({ ...data[0] }),
                 user: data[0]
