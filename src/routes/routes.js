@@ -6,7 +6,7 @@ const userController = require('../controllers/userController')
 const routes = (server) => {
     // Principal
     server.get('/', (req, res, next) => {
-        res.send({ hello: "Minha API" })
+        res.send({ hello: 'Minha API' })
         next()
     })
 

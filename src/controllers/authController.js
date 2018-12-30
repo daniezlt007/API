@@ -21,10 +21,10 @@ exports.login = async (req, res, next) => {
                     user: user[0]
                 })
             }
-            return res.send({ message: "Telefone ou senha incorretos" })
+            return res.send({ message: 'Telefone ou senha incorretos' })
         })
     } catch (e) {
-        return res.send({ message: "Erro: ", e })
+        return res.send({ message: 'Erro: ', e })
     }
 }
 
@@ -32,6 +32,6 @@ exports.refresh = async (req, res, next) => {
     try {
         // TODO
     } catch(e) {
-        return res.send({ message: "Erro: ", e })
+        return res.send({ message: 'Erro: ', e })
     }
 }

@@ -26,9 +26,9 @@ exports.register = async (req, res, next) => {
                     user: user[0]
                 })
             }
-            return res.send({ message: "Erro ao cadastrar" })
+            return res.send({ message: 'Erro ao cadastrar' })
         })
     } catch(e) {
-        return res.send({ message: "Erro: ", e })
+        return res.send({ message: 'Erro: ', e })
     }
 }
