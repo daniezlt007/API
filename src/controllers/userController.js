@@ -24,7 +24,7 @@ exports.register = async (req, res, next) => {
             password: hash
         }
 
-        var data = await repository.register(user)
+        var data = await repository.create(user)
 
         if (data[0] == 0) {
             return res.send({

@@ -16,7 +16,7 @@ exports.login = async (req, res, next) => {
 
         var data = await repository.login(credencials)
 
-        if (data[0]) {
+        if (data[0] == 0) {
             return res.send({
                 token: await authService.generateToken({ ...data[0] }),
                 user: data[0]
