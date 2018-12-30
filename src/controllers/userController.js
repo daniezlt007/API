@@ -9,7 +9,7 @@ exports.register = async (req, res, next) => {
     try {
         const saltRounds = 10
         bcrypt.hash(req.body.password, saltRounds, async (err, hash) => {
-            const payload = {
+            const user = {
                 uuid: uuid.apply(),
                 name: req.body.name,
                 nickname: req.body.nickname,
@@ -18,12 +18,12 @@ exports.register = async (req, res, next) => {
                 password: hash
             }
 
-            var user = await repository.register(payload)
+            var data = await repository.register(user)
 
-            if (user[0]) {
+            if (data[0]) {
                 return res.send({
-                    token: await authService.generateToken({ ...user[0] }),
-                    user: user[0]
+                    token: await authService.generateToken({ ...data[0] }),
+                    user: data[0]
                 })
             }
             return res.send({ message: 'Erro ao cadastrar' })
