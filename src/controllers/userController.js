@@ -7,7 +7,7 @@ const authService = require('../services/authService')
 
 exports.register = async (req, res, next) => {
     try {
-        var id = uuid('binary') //.replace(/-/g, '')
+        var id = uuid('binary')
         console.log('UUID GERADO ', id)
 
         const saltRounds = 10
