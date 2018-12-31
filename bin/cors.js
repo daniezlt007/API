@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const corsMiddleware = require('restify-cors-middleware')
 

@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const bcrypt = require('bcrypt')
 const repository = require('../repositories/authRepository')
@@ -14,24 +14,17 @@ exports.login = async (req, res, next) => {
             password: hash
         }
 
-        var data = await repository.login(credencials)
+        const data = await repository.login(credencials)
+        console.log('DADOS RETORNADOS: ' + data)
 
-        if (data[0] == 0) {
-            return res.send({
+        if (data) {
+            return res.send(200, {
                 token: await authService.generateToken({ ...data[0] }),
                 user: data[0]
             })
         }
-        return res.send({ message: 'Telefone ou senha incorretos' })
+        return res.send(400, { message: 'Telefone ou senha incorretos' })
     } catch (error) {
-        return res.send({ message: 'Erro: ' + error })
-    }
-}
-
-exports.refresh = async (req, res, next) => {
-    try {
-        // TODO
-    } catch(error) {
-        return res.send({ message: 'Erro: ' + error })
+        return res.send(400, { message: 'Erro: ' + error })
     }
 }

@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const authController = require('../controllers/authController')
 const userController = require('../controllers/userController')
@@ -6,7 +6,7 @@ const userController = require('../controllers/userController')
 const routes = (server) => {
     // Principal
     server.get('/', (req, res, next) => {
-        res.send({ hello: 'Minha API' })
+        res.send({ hello: 'API' })
         next()
     })
 
@@ -15,7 +15,6 @@ const routes = (server) => {
 
     // Autenticação
     server.post('/login', authController.login)
-    server.put('/refresh', authController.refresh)
 }
 
 module.exports = routes

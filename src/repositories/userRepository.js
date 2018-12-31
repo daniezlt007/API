@@ -1,9 +1,13 @@
-'use strict';
+'use strict'
 
 const db = require('../database/config')
 
 exports.create = async (user) => {
-    const connection = await db.connection()
-    let insert = await connection.insert(user).table('person')
-    return insert
+    try {
+        const connection = await db.connection()
+        await connection.insert(user).table('person')
+        return true
+    } catch(error) {
+        return false
+    }
 }
