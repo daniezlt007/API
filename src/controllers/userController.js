@@ -7,12 +7,11 @@ const authService = require('../services/authService')
 
 exports.register = async (req, res, next) => {
     try {
-        const id = new Buffer.from(uuid().replace(/-/g, ''), 'hex')
         const saltRounds = 10
         const hash = await bcrypt.hash(req.body.password, saltRounds)
 
         const user = {
-            id: id,
+            id: uuid(),
             name: req.body.name,
             nickname: req.body.nickname,
             phone: req.body.phone,
