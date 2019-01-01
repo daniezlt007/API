@@ -14,9 +14,7 @@ exports.login = async (user) => {
             })
             .then((result) => {
                 if (!result || !result[0])  {
-                    // Erro: undefined
-                    console.log('Reject: ' + reject())
-                    return false
+                    reject('CAIU NO REJECT')
                 }
                 resolve(result)
             })
