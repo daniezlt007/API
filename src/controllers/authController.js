@@ -11,7 +11,7 @@ exports.login = async (req, res, next) => {
         }
 
         const data = await repository.login(credentials)
-        console.log('DADOS RETORNADOS: ' + data.id)
+        console.log('DADOS RETORNADOS: ' + data)
 
         /*if (data[0]) {
             const { id, establishment_id, profile, nickname } = data[0]

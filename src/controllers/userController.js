@@ -22,7 +22,7 @@ exports.register = async (req, res, next) => {
         const data = await repository.create(user)
         console.log('DADOS RETORNADOS: ' + data)
 
-        if (data) {
+        if (data[0]) {
             return res.send(201, {
                 token: await authService.generateToken({ ...data }),
                 id: id,
