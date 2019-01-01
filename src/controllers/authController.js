@@ -13,7 +13,7 @@ exports.login = async (req, res, next) => {
             password: hash
         }
 
-        let data = await repository.login(credentials)
+        const data = await repository.login(credentials)
         console.log('DADOS RETORNADOS: ' + data)
 
         if (data[0]) {
