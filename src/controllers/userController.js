@@ -7,8 +7,7 @@ const authService = require('../services/authService')
 
 exports.register = async (req, res, next) => {
     try {
-        const saltRounds = 10
-        const hash = await bcrypt.hash(req.body.password, saltRounds)
+        const hash = await bcrypt.hash(req.body.password, 10)
 
         const user = {
             id: uuid(),
