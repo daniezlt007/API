@@ -6,11 +6,9 @@ const authService = require('../services/authService')
 
 exports.login = async (req, res, next) => {
     try {
-        const hash = await bcrypt.hash(req.body.password, 10)
-
         const credentials = {
             phone: req.body.phone,
-            password: hash
+            password: req.body.password
         }
 
         const data = await repository.login(credentials)
@@ -24,7 +22,7 @@ exports.login = async (req, res, next) => {
             })
         }
         return res.send(400, { message: 'Telefone ou senha incorretos' })
-    } catch (err) {
-        return res.send(400, { message: 'Erro: ' + err })
+    } catch (e) {
+        return res.send(400, { message: 'Erro: ' + e })
     }
 }

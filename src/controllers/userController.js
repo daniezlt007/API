@@ -31,7 +31,7 @@ exports.register = async (req, res, next) => {
             })
         }
         return res.send(400, { message: 'Erro ao cadastrar' })
-    } catch(err) {
-        return res.send(400, { message: 'Erro: ' + err })
+    } catch(e) {
+        return res.send(400, { message: 'Erro: ' + e })
     }
 }

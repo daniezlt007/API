@@ -6,7 +6,7 @@ exports.login = async (user) => {
     return new Promise((resolve, reject) => {
         try {
             const connection = db.connection()
-            connection.select('id', 'establishment_id', 'nickname', 'profile')
+            connection.select('id', 'establishment_id', 'nickname', 'profile', 'password')
             .from('person')
             .where({
                 'phone': user.phone,
@@ -18,8 +18,8 @@ exports.login = async (user) => {
                 }
                 resolve(result)
             })
-        } catch(err) {
-            console.log('Erro: ' + err)
+        } catch(e) {
+            console.log('Erro: ' + e)
         }
     })
 }
