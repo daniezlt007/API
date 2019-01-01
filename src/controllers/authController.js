@@ -14,7 +14,6 @@ exports.login = async (req, res, next) => {
         }
 
         let data = await repository.login(credentials)
-        // Erro: undefined
         console.log('DADOS RETORNADOS: ' + data)
 
         /*if (data[0]) {
