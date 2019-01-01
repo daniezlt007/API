@@ -14,7 +14,8 @@ exports.login = async (user) => {
             })
             .then((result) => {
                 if (!result || !result[0])  {
-                    console.log('Reject: ' + reject)
+                    // Erro: undefined
+                    console.log('Reject: ' + reject())
                     return false
                 }
                 resolve(result)
