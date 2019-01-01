@@ -5,12 +5,11 @@ const db = require('../database/config')
 exports.login = async (user) => {
     try {
         const connection = await db.connection()
-        let select = await connection.select('id', 'name', 'profile')
+        let data = await connection.select('id', 'establishment_id', 'nickname','profile')
         .from('person')
-        .where('phone', user.phone)
-        .andWhere('password', user.password)
+        .where({'phone': user.phone, 'password': user.password})
 
-        return select
+        return data
     } catch(error) {
         return false
     }

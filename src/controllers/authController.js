@@ -6,21 +6,23 @@ const authService = require('../services/authService')
 
 exports.login = async (req, res, next) => {
     try {
-        const saltRounds = 10
-        const hash = await bcrypt.hash(req.body.password, saltRounds)
+        const hash = await bcrypt.hash(req.body.password, 10)
 
-        const credencials = {
+        const credentials = {
             phone: req.body.phone,
             password: hash
         }
 
-        const data = await repository.login(credencials)
+        const data = await repository.login(credentials)
         console.log('DADOS RETORNADOS: ' + data)
 
         if (data) {
             return res.send(200, {
-                token: await authService.generateToken({ ...data[0] }),
-                user: data[0]
+                token: await authService.generateToken({ ...data }),
+                id: '',
+                establishment_id: '',
+                profile: '',
+                nickname: ''
             })
         }
         return res.send(400, { message: 'Telefone ou senha incorretos' })

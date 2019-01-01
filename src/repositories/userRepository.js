@@ -5,9 +5,9 @@ const db = require('../database/config')
 exports.create = async (user) => {
     try {
         const connection = await db.connection()
-        await connection.insert(user).table('person')
-        return true
+        const data = await connection.insert(user).table('person').returning('profile', 'nickname').get();
+        return data
     } catch(error) {
-        return false
+        return error
     }
 }
