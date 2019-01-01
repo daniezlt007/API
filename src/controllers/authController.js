@@ -11,16 +11,15 @@ exports.login = async (req, res, next) => {
         }
 
         const data = await repository.login(credentials)
-        console.log('DADOS RETORNADOS: ' + data)
 
-        /*if (data[0]) {
+        if (data[0]) {
             const { id, establishment_id, profile, nickname } = data[0]
 
             return res.send(200, {
                 token: await authService.generateToken({ id, establishment_id, profile, nickname })
             })
         }
-        return res.send(400, { message: 'Telefone ou senha incorretos' })*/
+        return res.send(400, { message: 'Telefone ou senha incorretos' })
     } catch (e) {
         return res.send(400, { message: 'Erro: ' + e })
     }

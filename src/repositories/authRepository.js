@@ -9,17 +9,16 @@ exports.login = async (user) => {
             const connection = db.connection()
             connection.select('id', 'establishment_id', 'nickname', 'profile', 'phone', 'password')
             .from('person')
-            .where({
-                'phone': user.phone
-            })
+            .where({ 'phone': user.phone })
             .then((result) => {
                 if (!result || !result[0])  {
                     reject('CAIU NO REJECT')
                 }
 
-                bcrypt.compare(user.password, result.password).then(() => {
-                    resolve(result)
-                })
+                // Compara a senha enviada, com a senha gravada no banco
+                bcrypt.compare(user.password, result[0].password)
+                .then(() => resolve(result))
+                .catch(() => reject('CAIU NO REJECT'))
             })
         } catch(e) {
             console.log('Erro: ' + e)
