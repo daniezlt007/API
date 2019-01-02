@@ -19,7 +19,7 @@ exports.login = async (req, res, next) => {
                 token: await authService.generateToken({ id, establishment_id, profile, nickname })
             })
         }
-        return res.send(400, { message: 'Telefone ou senha incorretos' })
+        // return res.send(400, { message: 'Erro 2: ' + e })
     } catch (e) {
         return res.send(400, { message: 'Erro: ' + e })
     }
