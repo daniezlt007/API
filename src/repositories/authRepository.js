@@ -12,13 +12,13 @@ exports.login = async (user) => {
             .where({ 'phone': user.phone })
             .then((result) => {
                 if (!result || !result[0])  {
-                    reject('CAIU NO REJECT')
+                    reject('CAIU NO REJECT 1')
+                } else {
+                    // Compara a senha enviada, com a senha gravada no banco
+                    bcrypt.compare(user.password, result[0].password)
+                    .then(() => resolve(result))
+                    .catch(() => reject('CAIU NO REJECT'))
                 }
-
-                // Compara a senha enviada, com a senha gravada no banco
-                bcrypt.compare(user.password, result[0].password)
-                .then(() => resolve(result))
-                .catch(() => reject('CAIU NO REJECT'))
             })
         } catch(e) {
             console.log('Erro: ' + e)
