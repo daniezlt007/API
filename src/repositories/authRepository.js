@@ -12,7 +12,7 @@ exports.login = async (user) => {
             .where({ 'phone': user.phone })
             .then((result) => {
                 if (!result || !result[0])  {
-                    reject('CAIU NO REJECT 1')
+                    reject('CAIU NO REJECT')
                 } else {
                     // Compara a senha enviada, com a senha gravada no banco
                     bcrypt.compare(user.password, result[0].password)

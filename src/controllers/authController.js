@@ -10,7 +10,7 @@ exports.login = async (req, res, next) => {
             password: req.body.password
         }
 
-        const data = await repository.login(credentials)
+        let data = await repository.login(credentials)
 
         if (data[0]) {
             const { id, establishment_id, profile, nickname } = data[0]
