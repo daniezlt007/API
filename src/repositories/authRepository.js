@@ -11,14 +11,14 @@ exports.login = async (user) => {
             .from('person')
             .where({ 'phone': user.phone })
             .then((result) => {
-                if (!result || !result[0])  {
-                    reject('CAIU NO REJECT')
-                } else {
-                    // Compara a senha enviada, com a senha gravada no banco
-                    bcrypt.compare(user.password, result[0].password)
-                    .then(() => resolve(result))
-                    .catch(() => reject('CAIU NO REJECT'))
-                }
+                bcrypt.compare(user.password, result[0].password)
+                .then((res) => {
+                    if (res && result) {
+                        resolve(result)
+                    } else {
+                        reject('Telefone ou senha, inválidos')
+                    }
+                })
             })
         } catch(e) {
             console.log('Erro: ' + e)
