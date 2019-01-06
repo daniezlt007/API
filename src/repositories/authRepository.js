@@ -8,8 +8,8 @@ exports.login = async (user) => {
     const result = await connection.select('id', 'establishment_id', 'nickname', 'profile', 'phone', 'password')
     .from('person').where({ 'phone': user.phone })
 
-    if (!result) {
-        throw new Error('Usuário não encontrado')
+    if (result.length === 0) {
+        throw new Error('Telefone não encontrado')
     }
 
     const res = await bcrypt.compare(user.password, result[0].password)
