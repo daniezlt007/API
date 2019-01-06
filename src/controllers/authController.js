@@ -20,6 +20,6 @@ exports.login = async (req, res, next) => {
             })
         }
     } catch (e) {
-        return res.send(400, { message: 'Erro: ' + e })
+        return res.send(400, { message: console.error(e) })
     }
 }
