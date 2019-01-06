@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 exports.login = async (user) => {
     const connection = db.connection()
     const result = connection.select('id', 'establishment_id', 'nickname', 'profile', 'phone', 'password')
-    .from('person').where({ 'phone': user.phone }).get()
+    .from('person').where({ 'phone': user.phone })
 
     console.log(result[0].password)
     if (!result) {
