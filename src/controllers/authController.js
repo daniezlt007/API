@@ -10,7 +10,7 @@ exports.login = async (req, res, next) => {
             password: req.body.password
         }
 
-        let data = await repository.login(credentials)
+        const data = await repository.login(credentials)
 
         if (data) {
             const { id, establishment_id, profile, nickname } = data[0]
@@ -19,7 +19,6 @@ exports.login = async (req, res, next) => {
                 token: await authService.generateToken({ id, establishment_id, profile, nickname })
             })
         }
-        return res.send(400, { message: 'Erro: ' + e }) // Não está sendo usado
     } catch (e) {
         return res.send(400, { message: 'Erro: ' + e })
     }
