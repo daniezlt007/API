@@ -5,10 +5,9 @@ const bcrypt = require('bcrypt')
 
 exports.login = async (user) => {
     const connection = db.connection()
-    const result = connection.select('id', 'establishment_id', 'nickname', 'profile', 'phone', 'password')
+    const result = await connection.select('id', 'establishment_id', 'nickname', 'profile', 'phone', 'password')
     .from('person').where({ 'phone': user.phone })
 
-    console.log(result[0].password)
     if (!result) {
         throw new Error('Usuário não encontrado')
     }

@@ -10,8 +10,6 @@ exports.login = async (req, res, next) => {
             password: req.body.password
         }
 
-        console.log(req.body)
-
         const data = await repository.login(credentials)
 
         if (data) {
