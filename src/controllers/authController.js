@@ -19,11 +19,8 @@ exports.login = async (req, res, next) => {
                 token: await authService.generateToken({ id, establishment_id, profile, nickname })
             })
         }
-        return res.send(404, { message: 'Telefone ou senha inválido' }) // nunca cai nesse return
     } catch (e) {
-        // retorna: Error: Telefone não encontrado at Object.exports.login (/var/www/api/src/repositories/authRepository.js:12:15)
         console.error(e)
-
         return res.send(400, { message: e }) // retorna: message: {}
     }
 }
