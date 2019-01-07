@@ -20,7 +20,6 @@ exports.login = async (req, res, next) => {
             })
         }
     } catch (e) {
-        console.error(e)
-        return res.send(400, { message: e }) // retorna: message: {}
+        return res.send(400, { message: e.message })
     }
 }
