@@ -12,14 +12,18 @@ exports.login = async (req, res, next) => {
 
         const data = await repository.login(credentials)
 
-        if (data) {
+        if (data[0]) {
             const { id, establishment_id, profile, nickname } = data[0]
 
             return res.send(200, {
-                token: await authService.generateToken({ id, establishment_id, profile, nickname })
+                token: await authService.generateToken({ id, profile }),
+                id: id,
+                establishment_id: establishment_id,
+                profile: profile,
+                nickname: nickname
             })
         }
-    } catch (e) {
-        return res.send(400, { message: e.message })
+    } catch (error) {
+        return res.send(400, { message: error.message })
     }
 }

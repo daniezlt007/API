@@ -21,16 +21,18 @@ exports.register = async (req, res, next) => {
 
         const data = await repository.create(user)
 
-        if (data) {
+        if (data[0]) {
+            const { id, establishment_id, profile, nickname } = data[0]
+
             return res.send(201, {
-                token: await authService.generateToken({ ...data }),
+                token: await authService.generateToken({ id, profile }),
                 id: id,
-                establishment_id: '',
-                profile: '',
-                nickname: ''
+                establishment_id: establishment_id,
+                profile: profile,
+                nickname: nickname
             })
         }
-    } catch(e) {
-        return res.send(400, { message: e.message })
+    } catch(error) {
+        return res.send(400, { message: error.message })
     }
 }
