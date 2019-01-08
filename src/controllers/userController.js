@@ -20,18 +20,17 @@ exports.register = async (req, res, next) => {
         }
 
         const data = await repository.create(user)
-        console.log('DADOS RETORNADOS: ' + data)
 
-        if (data[0]) {
+        if (data) {
             return res.send(201, {
                 token: await authService.generateToken({ ...data }),
                 id: id,
+                establishment_id: '',
                 profile: '',
                 nickname: ''
             })
         }
-        return res.send(400, { message: 'Erro ao cadastrar' })
     } catch(e) {
-        return res.send(400, { message: 'Erro: ' + e })
+        return res.send(400, { message: e.message })
     }
 }
