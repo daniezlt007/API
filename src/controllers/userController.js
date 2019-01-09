@@ -20,8 +20,8 @@ exports.register = async (req, res, next) => {
         }
 
         const data = await repository.create(user)
-
         console.log(data[0])
+
         if (data[0]) {
             const { establishment_id, profile } = data[0]
 
