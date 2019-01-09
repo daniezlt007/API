@@ -4,8 +4,13 @@ const db = require('../database/config')
 
 exports.create = async (user) => {
     const connection = db.connection()
-    const result = await connection.insert(user).table('person').returning('profile')
+    await connection.insert(user).into('person')
+    .then(() => {
+        const result = connection.select('establishment_id', 'profile')
+        .from('person')
+        .where('id', user.id)
 
-    if (result.length === 0) throw new Error('Profile não encontrado')
-    return result
+        if (result.length === 0) throw new Error('Erro inesperado')
+        return result
+    })
 }

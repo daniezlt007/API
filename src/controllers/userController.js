@@ -22,14 +22,13 @@ exports.register = async (req, res, next) => {
         const data = await repository.create(user)
 
         if (data[0]) {
-            const { id, establishment_id, profile, nickname } = data[0]
+            const { establishment_id, profile } = data[0]
 
             return res.send(201, {
                 token: await authService.generateToken({ id, profile }),
                 id: id,
                 establishment_id: establishment_id,
-                profile: profile,
-                nickname: nickname
+                profile: profile
             })
         }
     } catch(error) {
