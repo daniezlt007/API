@@ -7,8 +7,7 @@ exports.create = async (user) => {
     await connection.insert(user).into('person')
     .then(() => {
         const result = connection.select('establishment_id', 'profile')
-        .from('person')
-        .where('id', user.id)
+        .from('person').where('id', user.id)
 
         if (result.length === 0) throw new Error('Erro inesperado')
         return result
