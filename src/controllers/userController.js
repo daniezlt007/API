@@ -20,9 +20,11 @@ exports.register = async (req, res, next) => {
         }
 
         const data = await repository.create(user)
-        console.log(data) // Retorna undefined
 
-        if (data[0]) {
+        // Retorna undefined
+        console.log('userController: ' + data)
+
+        /*if (data) {
             const { establishment_id, profile } = data[0]
 
             return res.send(201, {
@@ -31,7 +33,7 @@ exports.register = async (req, res, next) => {
                 establishment_id: establishment_id,
                 profile: profile
             })
-        }
+        }*/
     } catch(error) {
         return res.send(400, { message: error.message })
     }
