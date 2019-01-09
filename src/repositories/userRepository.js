@@ -12,9 +12,7 @@ exports.create = async (user) => {
         /* Cannot read property 'length' of undefined
         if (result.length === 0) throw new Error('Erro ao recuperar dados') */
 
+        console.log(result)
         return result
-    })
-    .catch((error) => {
-        console.error(error) // Não esta sendo usado
     })
 }

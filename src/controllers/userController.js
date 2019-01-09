@@ -36,7 +36,6 @@ exports.register = async (req, res, next) => {
         }*/
     } catch(error) {
         console.error(error)
-
         return res.send(400, { message: error.message })
     }
 }
