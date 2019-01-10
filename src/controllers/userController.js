@@ -24,7 +24,7 @@ exports.register = async (req, res, next) => {
         // Retorna undefined
         console.log(data)
 
-        /*if (data) {
+        if (data) {
             const { establishment_id, profile } = data[0]
 
             return res.send(201, {
@@ -33,7 +33,7 @@ exports.register = async (req, res, next) => {
                 establishment_id: establishment_id,
                 profile: profile
             })
-        }*/
+        }
     } catch(error) {
         console.error(error)
         return res.send(400, { message: error.message })
