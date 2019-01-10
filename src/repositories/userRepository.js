@@ -12,7 +12,8 @@ exports.create = async (user) => {
         /* Cannot read property 'length' of undefined
         if (result.length === 0) throw new Error('Erro ao recuperar dados') */
 
-        console.log('Result' + result)
+        console.log('Result: ' + result[0].profile)
+
         return result
     })
 }
