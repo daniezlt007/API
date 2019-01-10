@@ -22,7 +22,7 @@ exports.register = async (req, res, next) => {
         const data = await repository.create(user)
 
         // Retorna undefined
-        console.log('userController: ' + data)
+        console.log(data)
 
         /*if (data) {
             const { establishment_id, profile } = data[0]
