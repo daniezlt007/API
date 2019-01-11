@@ -10,19 +10,16 @@ exports.login = async (req, res, next) => {
             password: req.body.password
         }
 
-        const data = await repository.login(credentials)
+        const user = await repository.login(credentials)
+        const { id, establishment_id, profile, nickname } = user[0]
 
-        if (data[0]) {
-            const { id, establishment_id, profile, nickname } = data[0]
-
-            return res.send(200, {
-                token: await authService.generateToken({ id, profile }),
-                id: id,
-                establishment_id: establishment_id,
-                profile: profile,
-                nickname: nickname
-            })
-        }
+        return res.send(200, {
+            token: await authService.generateToken({ id, establishment_id, profile, nickname }),
+            id: id,
+            establishment_id: establishment_id,
+            profile: profile,
+            nickname: nickname
+        })
     } catch (error) {
         return res.send(400, { message: error.message })
     }

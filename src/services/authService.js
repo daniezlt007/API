@@ -13,12 +13,9 @@ exports.decodeToken = async (token) => {
 exports.authorize = function (req, res, next) {
     const token = req.body.token || req.query.token || req.headers['x-access-token']
 
-    if (!token) {
-        return res.json(400, { message: 'Acesso restrito' })
-    } else {
-        jwt.verify(token, process.env.SALT_KEY, function (error, decoded) {
-            if (error) return res.json(400, { message: 'Token inválido' })
-            return next()
-        })
-    }
+    if (!token) return res.json(400, { message: 'Acesso restrito' })
+    return jwt.verify(token, process.env.SALT_KEY, function (error, decoded) {
+        if (error) return res.json(400, { message: 'Token inválido' })
+        return next()
+    })
 }
