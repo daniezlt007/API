@@ -5,8 +5,7 @@ const db = require('../database/config')
 exports.create = async (user) => {
     const connection = db.connection()
 
-    const data = await connection.select('phone', 'email').from('person')
-    .where('phone', user.phone).orWhere('email', user.email)
+    const data = await connection.select('phone', 'email').from('person').where('phone', user.phone).orWhere('email', user.email)
 
     if (data.length === 0) {
         return await connection.insert(user).into('person').return(true)
