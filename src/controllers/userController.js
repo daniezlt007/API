@@ -19,16 +19,11 @@ exports.register = async (req, res, next) => {
             password: hash
         }
 
-        const data = await repository.create(user)
+        const register = await repository.create(user)
 
-        if (data[0]) {
-            const { establishment_id, profile } = data[0]
-
+        if (register) {
             return res.send(201, {
-                token: await authService.generateToken({ id, profile }),
-                id: id,
-                establishment_id: establishment_id,
-                profile: profile
+                token: await authService.generateToken({ id, establishment_id: null, profile: 'client' })
             })
         }
     } catch(error) {
