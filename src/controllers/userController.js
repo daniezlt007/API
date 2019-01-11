@@ -4,7 +4,7 @@ const uuid = require('uuid/v4')
 const bcrypt = require('bcrypt')
 const repository = require('../repositories/userRepository')
 const authService = require('../services/authService')
-const validator = require('validator')
+const validation = require('../helpers/validation')
 
 exports.register = async (req, res, next) => {
     try {
@@ -20,9 +20,7 @@ exports.register = async (req, res, next) => {
             password: hash
         }
 
-        // Melhorar esta validação
-        const empty = validator.isEmpty(user.name) || validator.isEmpty(user.nickname) || validator.isEmpty(user.phone) || validator.isEmpty(user.email)
-        if (empty) { return res.send(400, { message: 'Preencha todos os campos' }) }
+        await validation(req.body)
 
         await repository.create(user)
 
