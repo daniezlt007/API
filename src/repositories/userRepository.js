@@ -7,8 +7,8 @@ exports.create = async (user) => {
 
     const data = await connection.select('phone', 'email').from('person').where('phone', user.phone).orWhere('email', user.email)
 
-    if (data.length === 0) {
-        return await connection.insert(user).into('person').return(true)
+    if (data.length > 0) {
+        throw new Error('Telefone ou e-mail, já existem')
     }
-    throw new Error('Telefone ou e-mail, já existem')
+    return await connection.insert(user).into('person').return(true)
 }
