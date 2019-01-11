@@ -27,9 +27,10 @@ exports.register = async (req, res, next) => {
         await repository.create(user)
 
         return res.send(201, {
-            token: await authService.generateToken({ id, establishment_id: null, profile: 'client' })
+            token: await authService.generateToken({ id, profile: 'client' })
         })
     } catch(error) {
+        console.error(error)
         return res.send(400, { message: error.message })
     }
 }
