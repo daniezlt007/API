@@ -14,13 +14,11 @@ exports.login = async (req, res, next) => {
         const { id, establishment_id, profile, nickname } = user[0]
 
         return res.send(200, {
-            token: await authService.generateToken({ id, establishment_id, profile, nickname }),
-            id: id,
-            establishment_id: establishment_id,
-            profile: profile,
+            token: await authService.generateToken({ id, establishment_id, profile }),
             nickname: nickname
         })
     } catch (error) {
+        console.error(error)
         return res.send(400, { message: error.message })
     }
 }
