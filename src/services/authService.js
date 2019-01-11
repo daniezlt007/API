@@ -16,6 +16,6 @@ exports.authorize = function (req, res, next) {
     if (!token) return res.json(400, { message: 'Acesso restrito' })
     return jwt.verify(token, process.env.SALT_KEY, function (error, decoded) {
         if (error) return res.json(400, { message: 'Token inválido' })
-        return next()
+        next()
     })
 }

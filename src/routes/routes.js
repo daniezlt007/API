@@ -1,19 +1,17 @@
 'use strict'
 
+const indexController = require('../controllers/indexController')
 const authController = require('../controllers/authController')
 const userController = require('../controllers/userController')
 
 const routes = (server) => {
-    // Principal
-    server.get('/', (req, res, next) => {
-        res.send({ hello: 'API' })
-        next()
-    })
+    // Home
+    server.get('/', indexController.welcome)
 
     // Cadastro
     server.post('/register', userController.register)
 
-    // Autenticação
+    // Login
     server.post('/login', authController.login)
 }
 
