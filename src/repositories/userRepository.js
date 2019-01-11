@@ -10,5 +10,5 @@ exports.create = async (user) => {
     if (data.length > 0) {
         throw new Error('Telefone ou e-mail, já existem')
     }
-    return await connection.insert(user).into('person').return(true)
+    return await connection.insert(user).into('person')
 }
