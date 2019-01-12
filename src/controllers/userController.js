@@ -1,10 +1,10 @@
 'use strict'
 
+const joi = require('joi')
 const uuid = require('uuid/v4')
 const bcrypt = require('bcrypt')
 const repository = require('../repositories/userRepository')
 const authService = require('../services/authService')
-const joi = require('joi')
 
 exports.register = async (req, res, next) => {
     try {
@@ -36,6 +36,10 @@ exports.register = async (req, res, next) => {
         })
     } catch(error) {
         console.error(error)
+
+        // Remove o possível retorno do password
+        delete error.details[0]['context']
+        delete error._object
         return res.send(400, { error })
     }
 }
