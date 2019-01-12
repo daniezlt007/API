@@ -17,12 +17,8 @@ exports.register = async (req, res, next) => {
         })
 
         const data = await joi.validate(req.body, schema)
-        console.log(data)
-
-        ///////////////////////////////////////////////////////////////////////////////
-
         const id = await uuid()
-        const hash = await bcrypt.hash(req.body.password, 10)
+        const hash = await bcrypt.hash(data.password, 10)
 
         const user = {
             id: id,
@@ -33,11 +29,11 @@ exports.register = async (req, res, next) => {
             password: hash
         }
 
-        /*await repository.create(user)
+        await repository.create(user)
 
         return res.send(201, {
             token: await authService.generateToken({ id, profile: 'client' })
-        })*/
+        })
     } catch(error) {
         console.error(error)
         return res.send(400, { error })
