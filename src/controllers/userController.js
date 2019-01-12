@@ -36,10 +36,6 @@ exports.register = async (req, res, next) => {
         })
     } catch(error) {
         console.error(error)
-
-        // Remove o possível retorno do password
-        delete error.details[0]['context']
-        delete error._object
-        return res.send(400, { error })
+        return res.send(400, { message: error.message })
     }
 }
