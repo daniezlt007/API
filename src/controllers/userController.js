@@ -27,9 +27,7 @@ exports.register = async (req, res, next) => {
                 rule('regex', /\(\d{2}\)\s\d{5}-?\d{4}/)
             ],
             email: 'required|email',
-            password: [
-                rule('regex', /\d{36}/)
-            ]
+            password: 'required|string'
         }
 
         await validateAll(user, rules)
