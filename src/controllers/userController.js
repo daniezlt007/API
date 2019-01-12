@@ -6,9 +6,9 @@ const bcrypt = require('bcrypt')
 const repository = require('../repositories/userRepository')
 const authService = require('../services/authService')
 
-exports.register = async (req, res, next) => {
+exports.register = async (req, res) => {
     try {
-        const schema = joi.object().keys({
+        const userSchema = joi.object().keys({
             name: joi.string().required(),
             nickname: joi.string().required(),
             phone: joi.string().regex(/^\(\d{2}\)\s\d{5}-?\d{4}$/),
@@ -16,7 +16,7 @@ exports.register = async (req, res, next) => {
             password: joi.string().min(8).required()
         })
 
-        const data = await joi.validate(req.body, schema)
+        const data = await joi.validate(req.body, userSchema)
         const id = await uuid()
         const hash = await bcrypt.hash(data.password, 10)
 

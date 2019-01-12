@@ -1,13 +1,21 @@
 'use strict'
 
+const joi = require('joi')
 const repository = require('../repositories/authRepository')
 const authService = require('../services/authService')
 
-exports.login = async (req, res, next) => {
+exports.login = async (req, res) => {
     try {
+        const loginSchema = joi.object().keys({
+            phone: joi.string().regex(/^\(\d{2}\)\s\d{5}-?\d{4}$/),
+            password: joi.string().min(8).required()
+        })
+
+        const data = await joi.validate(req.body, loginSchema)
+
         const credentials = {
-            phone: req.body.phone,
-            password: req.body.password
+            phone: data.phone,
+            password: data.password
         }
 
         const user = await repository.login(credentials)
