@@ -4,7 +4,7 @@ const uuid = require('uuid/v4')
 const bcrypt = require('bcrypt')
 const repository = require('../repositories/userRepository')
 const authService = require('../services/authService')
-const validation = require('../helpers/validation')
+const { validateAll, rule } = require('indicative')
 
 exports.register = async (req, res, next) => {
     try {
@@ -20,7 +20,17 @@ exports.register = async (req, res, next) => {
             password: hash
         }
 
-        await validation(req.body)
+        const rules = {
+            name: 'required|string',
+            nickname: 'required|string',
+            phone: [
+                rule('regex', /\(\d{2}\)\s\d{5}-?\d{4}/)
+            ],
+            email: 'required|email',
+            password: 'required|min:8'
+        }
+
+        await validateAll(user, rules)
 
         await repository.create(user)
 

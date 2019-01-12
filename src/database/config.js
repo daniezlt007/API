@@ -6,7 +6,6 @@ module.exports = {
     connection: () => {
         const connection = require('knex')({
             client: 'mysql',
-            version: '5.7',
             connection: {
                 host: process.env.DB_HOST,
                 port: process.env.DB_PORT,
