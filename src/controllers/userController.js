@@ -26,10 +26,10 @@ exports.register = async (req, res, next) => {
 
         const user = {
             id: id,
-            name: req.body.name,
-            nickname: req.body.nickname,
-            phone: req.body.phone,
-            email: req.body.email,
+            name: data.name,
+            nickname: data.nickname,
+            phone: data.phone,
+            email: data.email,
             password: hash
         }
 
