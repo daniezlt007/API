@@ -10,8 +10,8 @@ exports.login = async (user) => {
 
     if (rows.length === 0) throw new Error('Telefone não encontrado')
 
-    const res = await bcrypt.compare(user.password, rows[0].password)
+    const isValid = await bcrypt.compare(user.password, rows[0].password)
 
-    if (!res) throw new Error('Senha inválida')
+    if (!isValid) throw new Error('Senha inválida')
     return rows
 }
