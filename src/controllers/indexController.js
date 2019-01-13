@@ -1,5 +1,5 @@
 'use strict'
 
-exports.welcome = async (req, res, next) => {
-    return res.send(200, 'Hello World')
+exports.welcome = (req, res) => {
+    return res.send(200, 'Welcome')
 }
