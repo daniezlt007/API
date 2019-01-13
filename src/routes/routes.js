@@ -3,12 +3,10 @@
 const indexController = require('../controllers/indexController')
 const authController = require('../controllers/authController')
 const userController = require('../controllers/userController')
-//const productController = require('../controllers/productController')
+const productController = require('../controllers/productController')
 
 // Middleware
-const clientMiddleware = require('../middleware/clientMiddleware')
-const attendantMiddleware = require('../middleware/attendantMiddleware')
-const ownerMiddleware = require('../middleware/ownerMiddleware')
+const authService = require('../services/authService')
 
 const routes = (server) => {
     // Home
@@ -22,7 +20,7 @@ const routes = (server) => {
     server.put('/user', userController.edit)
 
     // TESTAR MIDDLEWARE (NÍVEL DE ACESSO: owner)
-    //server.post('/product', productController.store)
+    server.post('/product', authService.isOwner, productController.store)
 }
 
 module.exports = routes
