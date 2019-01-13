@@ -5,7 +5,7 @@ const authController = require('../controllers/authController')
 const userController = require('../controllers/userController')
 //const productController = require('../controllers/productController')
 
-const middleware = require('../middleware')
+const ownerMiddleware = require('../middleware/ownerMiddleware')
 
 const routes = (server) => {
     // Home
