@@ -39,3 +39,30 @@ exports.store = async (req, res) => {
         return res.send(400, { message: error.message })
     }
 }
+
+exports.edit = async (req, res) => {
+    try {
+        const userSchema = joi.object().keys({
+            id: joi.string().length(36).required(),
+            nickname: joi.string().required(),
+            phone: joi.string().regex(/^\(\d{2}\)\s\d{5}-?\d{4}$/),
+            email: joi.string().email({ minDomainAtoms: 2 }),
+        })
+
+        const data = await joi.validate(req.body, userSchema)
+
+        const user = {
+            id: data.id,
+            nickname: data.nickname,
+            phone: data.phone,
+            email: data.email
+        }
+
+        await repository.update(user)
+
+        return res.send(200, { message: 'Atualizado com sucesso' })
+    } catch(error) {
+        console.error(error)
+        return res.send(400, { message: error.message })
+    }
+}
