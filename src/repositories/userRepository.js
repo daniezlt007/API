@@ -13,9 +13,9 @@ exports.create = async (user) => {
 
 exports.update = async (user) => {
     const connection = db.connection()
-    const result = await connection('person').select('id').where('id', user.id)
+    const id = await connection('person').select('id').where('id', user.id)
 
-    if (result.length === 0) throw new Error('ID não encontrado')
+    if (id.length === 0) throw new Error('ID não encontrado')
 
     return await connection('person').where('id', user.id).update(user)
 }
