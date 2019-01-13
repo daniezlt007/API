@@ -3,16 +3,20 @@
 const indexController = require('../controllers/indexController')
 const authController = require('../controllers/authController')
 const userController = require('../controllers/userController')
+const productController = require('../controllers/productController')
 
 const routes = (server) => {
     // Home
     server.get('/', indexController.welcome)
 
     // Cadastro
-    server.post('/register', userController.register)
+    server.post('/user', userController.store)
 
     // Login
-    server.post('/login', authController.login)
+    server.post('/auth', authController.login)
+
+    // TESTAR MIDDLEWARE (NÍVEL DE ACESSO)
+    //server.post('/product', productController.store)
 }
 
 module.exports = routes

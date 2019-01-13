@@ -6,7 +6,7 @@ const bcrypt = require('bcrypt')
 const repository = require('../repositories/userRepository')
 const authService = require('../services/authService')
 
-exports.register = async (req, res) => {
+exports.store = async (req, res) => {
     try {
         const userSchema = joi.object().keys({
             name: joi.string().required(),
