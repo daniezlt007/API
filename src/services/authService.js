@@ -27,7 +27,7 @@ exports.isOwner = function (req, res, next) {
     return jwt.verify(token, process.env.SALT_KEY, function (error, decoded) {
         if (error) return res.json(401, { message: 'Token inválido 2' })
 
-        if (!decoded.roles.includes('owner')) return res.json(403, { message: 'Esta funcionalidade é restrita para Owners' })
+        if (!decoded.roles.includes('owner')) return res.json(403, { message: 'Restrito à Owners' })
         next()
     })
 }
