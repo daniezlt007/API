@@ -11,7 +11,7 @@ exports.decodeToken = async (token) => {
 }
 
 exports.authorize = function (req, res, next) {
-    const token = req.body.token || req.query.token || req.headers['x-access-token']
+    const token = req.headers['x-access-token']
 
     if (!token) return res.json(401, { message: 'Token inválido' })
     return jwt.verify(token, process.env.SALT_KEY, function (error, decoded) {
@@ -21,13 +21,13 @@ exports.authorize = function (req, res, next) {
 }
 
 exports.isOwner = function (req, res, next) {
-    const token = req.body.token || req.query.token || req.headers['x-access-token']
+    const token = req.headers['x-access-token']
 
-    if (!token) return res.json(401, { message: 'Token inválido 1' })
+    if (!token) return res.json(401, { message: 'Token inválido' })
     return jwt.verify(token, process.env.SALT_KEY, function (error, decoded) {
-        if (error) return res.json(401, { message: 'Token inválido 2' })
+        if (error) return res.json(401, { message: 'Token inválido' })
 
-        if (!decoded.roles.includes('owner')) return res.json(403, { message: 'Restrito à Owners' })
+        if (decoded.profile != 'owner') return res.json(403, { message: 'Restrito à Owners' })
         next()
     })
 }
