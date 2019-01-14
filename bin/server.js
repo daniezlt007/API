@@ -7,7 +7,7 @@ const routes = require('../src/routes/routes')
 const autenticate = require('../src/middleware/autenticate')
 
 // Rotas que não precisam de autenticação
-const exclusions = ['/auth']
+const exclusions = ['/', '/auth']
 
 // CORS
 server.pre(cors.preflight)
@@ -17,7 +17,6 @@ server.use(cors.actual)
 server.use(restify.plugins.acceptParser(server.acceptable))
 server.use(restify.plugins.queryParser())
 server.use(restify.plugins.bodyParser())
-
 server.use(autenticate({ exclusions }))
 
 // Carrega todas as rotas
