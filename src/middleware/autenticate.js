@@ -8,7 +8,7 @@ const autenticate = (routes) => {
             const token = req.headers['x-access-token']
 
             if (!token) return res.json(401, { message: 'Token não fornecido' })
-            return jwt.verify(token, process.env.SALT_KEY, function (error, decoded) {
+            return jwt.verify(token, process.env.JWT_SECRET, function (error, decoded) {
                 if (error) return res.json(401, { message: 'Token inválido' })
                 next()
             })
