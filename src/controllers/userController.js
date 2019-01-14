@@ -43,7 +43,6 @@ exports.store = async (req, res) => {
 exports.edit = async (req, res) => {
     try {
         const userSchema = joi.object().keys({
-            id: joi.string().length(36).required(),
             nickname: joi.string().required(),
             phone: joi.string().regex(/^\(\d{2}\)\s\d{5}-?\d{4}$/),
             email: joi.string().email({ minDomainAtoms: 2 }),
@@ -51,8 +50,11 @@ exports.edit = async (req, res) => {
 
         const data = await joi.validate(req.body, userSchema)
 
+        // Pega o UUID do usuário
+        const token = await authService.decodeToken(req.headers['x-access-token']);
+
         const user = {
-            id: data.id,
+            id: token.id,
             nickname: data.nickname,
             phone: data.phone,
             email: data.email
