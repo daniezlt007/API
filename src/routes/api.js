@@ -1,7 +1,6 @@
 'use strict'
 
 // Controllers
-const indexController = require('../controllers/indexController')
 const authController = require('../controllers/authController')
 const userController = require('../controllers/userController')
 const productController = require('../controllers/productController')
