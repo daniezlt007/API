@@ -10,9 +10,6 @@ const productController = require('../controllers/productController')
 const profile = require('../middleware/profile')
 
 const routes = (server) => {
-    // Home
-    server.get('/', indexController.welcome)
-
     // Login
     server.post('/auth', authController.login)
 

@@ -7,7 +7,7 @@ const routes = require('../src/routes/api')
 const authenticate = require('../src/middleware/authenticate')
 
 // Rotas que não precisam de autenticação
-const exclusions = ['/', '/auth', '/user'] // O /user do tipo PUT precisa de autenticação
+const exclusions = ['/auth', '/user'] // O /user do tipo PUT precisa de autenticação
 
 // CORS
 server.pre(cors.preflight)
