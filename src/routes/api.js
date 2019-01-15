@@ -14,7 +14,7 @@ const routes = (server) => {
 
     // User
     server.post('/user', userController.store)
-    server.put('/user', userController.edit) // Precisa estar autenticado
+    server.put('/user', userController.edit) // Problema: precisa estar autenticado
 
     // Product
     server.post('/product', profile.isOwner, productController.store)

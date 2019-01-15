@@ -1,5 +1,7 @@
 #### Atenção: Projeto ainda em desenvolvimento
 
+- **Baseado nos vídeos do Vedovelli e Balta.io**
+
 ### Pré-requisitos
 
 - **Node.js**
