@@ -2,14 +2,14 @@
 
 const jwt = require('jsonwebtoken')
 
-const autenticate = (routes) => {
+const authenticate = (routes) => {
     return async (req, res, next) => {
         if (!routes.exclusions.includes(req.href())) {
             const token = req.headers['x-access-token']
 
-            if (!token) return res.json(401, { message: 'Token não fornecido' })
+            if (!token) return res.json(401, { message: 'Authenticate: Token não fornecido' })
             return jwt.verify(token, process.env.JWT_SECRET, function (error, decoded) {
-                if (error) return res.json(401, { message: 'Token inválido' })
+                if (error) return res.json(401, { message: 'Authenticate: Token inválido' })
                 next()
             })
         }
@@ -17,4 +17,4 @@ const autenticate = (routes) => {
     }
 }
 
-module.exports = autenticate
+module.exports = authenticate

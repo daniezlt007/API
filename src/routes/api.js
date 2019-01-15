@@ -7,7 +7,7 @@ const userController = require('../controllers/userController')
 const productController = require('../controllers/productController')
 
 // Middleware
-const authService = require('../services/authService')
+const profile = require('../middleware/profile')
 
 const routes = (server) => {
     // Home
@@ -18,10 +18,10 @@ const routes = (server) => {
 
     // User
     server.post('/user', userController.store)
-    server.put('/user', userController.edit)
+    server.put('/user', userController.edit) // Precisa estar autenticado
 
     // Product
-    server.post('/product', authService.isOwner, productController.store)
+    server.post('/product', profile.isOwner, productController.store)
 }
 
 module.exports = routes
