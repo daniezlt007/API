@@ -62,9 +62,9 @@ exports.edit = async (req, res) => {
 
         await repository.update(user)
 
-        return res.send(200, { message: 'Atualizado com sucesso' })
+        return res.json(200, { message: 'Atualizado com sucesso' })
     } catch(error) {
         console.error(error)
-        return res.send(400, { message: error.message })
+        return res.json(400, { message: error.message })
     }
 }

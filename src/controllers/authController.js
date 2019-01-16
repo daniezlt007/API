@@ -21,12 +21,12 @@ exports.login = async (req, res) => {
         const user = await repository.login(credentials)
         const { id, establishment_id, profile, nickname } = user[0]
 
-        return res.send(200, {
+        return res.json(200, {
             token: await authService.generateToken({ id, establishment_id, profile }),
             nickname: nickname
         })
     } catch (error) {
         console.error(error)
-        return res.send(400, { message: error.message })
+        return res.json(400, { message: error.message })
     }
 }
