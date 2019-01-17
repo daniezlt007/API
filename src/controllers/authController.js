@@ -2,7 +2,7 @@
 
 const joi = require('joi')
 const repository = require('../repositories/authRepository')
-const authService = require('../services/authService')
+const auth = require('../services/auth')
 
 exports.login = async (req, res) => {
     try {
@@ -22,7 +22,7 @@ exports.login = async (req, res) => {
         const { id, establishment_id, profile, nickname } = user[0]
 
         return res.json(200, {
-            token: await authService.generateToken({ id, establishment_id, profile }),
+            token: await auth.generateToken({ id, establishment_id, profile }),
             nickname: nickname
         })
     } catch (error) {

@@ -4,7 +4,7 @@ const joi = require('joi')
 const uuid = require('uuid/v4')
 const bcrypt = require('bcrypt')
 const repository = require('../repositories/userRepository')
-const authService = require('../services/authService')
+const auth = require('../services/auth')
 
 exports.store = async (req, res) => {
     try {
@@ -32,7 +32,7 @@ exports.store = async (req, res) => {
         await repository.create(user)
 
         return res.json(201, {
-            token: await authService.generateToken({ id, profile: 'client' })
+            token: await auth.generateToken({ id, profile: 'client' })
         })
     } catch(error) {
         console.error(error)
@@ -51,7 +51,7 @@ exports.edit = async (req, res) => {
         const data = await joi.validate(req.body, userSchema)
 
         // Pega o UUID do usuário
-        const token = await authService.decodeToken(req.headers['x-access-token']);
+        const token = await auth.decodeToken(req.headers['x-access-token']);
 
         const user = {
             id: token.id,
