@@ -31,12 +31,12 @@ exports.store = async (req, res) => {
 
         await repository.create(user)
 
-        return res.send(201, {
+        return res.json(201, {
             token: await authService.generateToken({ id, profile: 'client' })
         })
     } catch(error) {
         console.error(error)
-        return res.send(400, { message: error.message })
+        return res.json(400, { message: error.message })
     }
 }
 
