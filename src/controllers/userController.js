@@ -51,7 +51,7 @@ exports.edit = async (req, res) => {
         const data = await joi.validate(req.body, userSchema)
 
         // Pega o UUID do usuário
-        const token = await auth.decodeToken(req.headers['x-access-token']);
+        const token = await auth.decodeToken(req.headers['x-access-token'])
 
         const user = {
             id: token.id,
