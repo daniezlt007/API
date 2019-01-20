@@ -1,13 +1,13 @@
 'use strict'
 
+// Middleware
+const profile = require('../middleware/profile')
+
 // Controllers
 const authController = require('../controllers/authController')
 const userController = require('../controllers/userController')
 const establishmentController = require('../controllers/establishmentController')
 const productController = require('../controllers/productController')
-
-// Middleware
-const profile = require('../middleware/profile')
 
 const routes = (server) => {
     // Login
