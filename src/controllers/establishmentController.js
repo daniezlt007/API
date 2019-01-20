@@ -5,6 +5,10 @@ const uuid = require('uuid/v4')
 const repository = require('../repositories/establishmentRepository')
 const auth = require('../services/auth')
 
+// AWS S3
+require('dotenv').config()
+//const s3 = require('aws-sdk/clients/s3')
+
 exports.store = async (req, res) => {
     try {
         const establishmentSchema = joi.object().keys({
@@ -17,27 +21,11 @@ exports.store = async (req, res) => {
         const data = await joi.validate(req.body, establishmentSchema)
         const id = await uuid()
 
-        // Salva a imagem
-        /*let filename = await uuid().toString() + '.jpg'
-        let rawdata = req.body.photo
-        let matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)
-        let type = matches[1]
-        let buffer = new Buffer(matches[2], 'base64')
-
-        await blobSvc.createBlockBlobFromText('product-images', filename, buffer, {
-            contentType: type
-        }, function (error, result, response) {
-            if (error) {
-                filename = 'default-product.png'
-            }
-        })*/
-
-        // Pega o UUID do usuário
         const token = await auth.decodeToken(req.headers['x-access-token'])
 
         const establishment = {
-            id: id,
-            person_id: token.id,
+            id: id, // ID do estabelecimento
+            person_id: token.id, // ID do usuário
             name: data.name,
             category: data.category,
             uf: data.uf,
@@ -47,6 +35,87 @@ exports.store = async (req, res) => {
         await repository.create(establishment)
 
         return res.json(201, { message: 'Estabelecimento criado com sucesso' })
+    } catch(error) {
+        console.error(error)
+        return res.json(400, { message: error.message })
+    }
+}
+
+exports.storePhoto = async (req, res) => {
+    try {
+        const establishmentSchema = joi.object().keys({
+            id: joi.string().guid('uuidv4')
+        })
+
+        const data = await joi.validate(req.body, establishmentSchema)
+
+        //let bucketName = 'project-img-bucket'
+        let filename = await uuid().toString() + '.jpg'
+        /*let rawdata = data.photo
+        let matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)
+        let fileType = matches[1]
+        let buffer = new Buffer(matches[2], 'base64')
+
+        let s3Params = {
+            Bucket: bucketName,
+            Key: fileName,
+            Body: buffer,
+            ContentEncoding: 'base64',
+            ContentType: fileType,
+            ACL: 'public-read'
+        }*/
+
+        // Envia a foto para o bucket
+        //await s3.putObject(s3Params)
+
+        const token = await auth.decodeToken(req.headers['x-access-token'])
+
+        const establishment = {
+            id: data.id, // ID do estabelecimento
+            person_id: token.id, // ID do usuário
+            photo: filename
+        }
+
+        // Faz o update no banco
+        await repository.storePhoto(establishment)
+
+        return res.json(201, { message: 'Foto enviada com sucesso' })
+    } catch(error) {
+        console.error(error)
+        return res.json(400, { message: error.message })
+    }
+}
+
+exports.deletePhoto = async (req, res) => {
+    try {
+        const establishmentSchema = joi.object().keys({
+            id: joi.string().guid('uuidv4'),
+            photo: joi.string().required()
+        })
+
+        const data = await joi.validate(req.body, establishmentSchema)
+
+        const token = await auth.decodeToken(req.headers['x-access-token'])
+
+        const establishment = {
+            id: data.id, // ID do estabelecimento
+            person_id: token.id, // ID do usuário
+            photo: data.photo // ID da foto
+        }
+
+        await repository.deletePhoto(establishment)
+
+        /*let bucketName = 'project-img-bucket'
+
+        let s3Params = {
+            Bucket: bucketName,
+            Key: data.photo
+        }*/
+
+        // Deleta a foto do bucket
+        //await s3.deleteObject(s3Params)
+
+        return res.json(200, { message: 'Foto deletada com sucesso' })
     } catch(error) {
         console.error(error)
         return res.json(400, { message: error.message })

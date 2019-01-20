@@ -13,14 +13,27 @@ const routes = (server) => {
     // Login
     server.post('/auth', authController.login)
 
-    // User
+    /*
+    *   USUAÁRIO
+    */
+
     server.post('/user', userController.store)
     server.put('/user', profile.isAuthenticate, userController.edit)
 
-    // Establishment
-    server.post('/establishment', profile.isOwner, establishmentController.store)
+    /*
+    *   ESTABELECIMENTO
+    */
 
-    // Product
+    server.post('/establishment', profile.isOwner, establishmentController.store)
+    // Cadastra a foto/logo do Estabelecimento
+    server.post('/establishment/photo', profile.isOwner, establishmentController.storePhoto)
+    // Deleta a foto/logo do Estabelecimento
+    server.del('/establishment/photo', profile.isOwner, establishmentController.deletePhoto)
+
+    /*
+    *   PRODUTO
+    */
+
     server.post('/product', profile.isOwner, productController.store)
 }
 
