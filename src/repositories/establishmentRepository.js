@@ -33,7 +33,7 @@ exports.deletePhoto = async (establishment) => {
         'photo': establishment.photo
     })
 
-    if (rows.length === 0) throw new Error('Estabelecimento não encontrado ou não pertence ao usuário ou a foto não pertence ao estabelecimento')
+    if (rows.length === 0) throw new Error('Estabelecimento ou foto não encontrado ou não pertence ao usuário')
 
     return await connection('establishment').where('id', establishment.id).update('photo', null)
 }

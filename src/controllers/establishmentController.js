@@ -49,9 +49,9 @@ exports.storePhoto = async (req, res) => {
 
         const data = await joi.validate(req.body, establishmentSchema)
 
-        //let bucketName = 'project-img-bucket'
-        let filename = await uuid().toString() + '.jpg'
-        /*let rawdata = data.photo
+        const filename = await uuid().toString() + '.jpg'
+        /*const bucketName = 'project-img-bucket'
+        let rawdata = data.photo
         let matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)
         let fileType = matches[1]
         let buffer = new Buffer(matches[2], 'base64')
@@ -73,7 +73,7 @@ exports.storePhoto = async (req, res) => {
         const establishment = {
             id: data.id, // ID do estabelecimento
             person_id: token.id, // ID do usuário
-            photo: filename
+            photo: filename // Foto
         }
 
         // Faz o update no banco
@@ -100,7 +100,7 @@ exports.deletePhoto = async (req, res) => {
         const establishment = {
             id: data.id, // ID do estabelecimento
             person_id: token.id, // ID do usuário
-            photo: data.photo // ID da foto
+            photo: data.photo // Foto
         }
 
         await repository.deletePhoto(establishment)
