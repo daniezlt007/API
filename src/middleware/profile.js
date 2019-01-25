@@ -29,3 +29,17 @@ exports.isOwner = (req, res, next) => {
         next()
     })
 }
+
+// Rota restrita à Managers
+exports.isManager = (req, res, next) => {
+    const token = req.headers['x-access-token']
+
+    if (!token) return res.json(401, { message: 'Token não fornecido' })
+
+    return jwt.verify(token, JWT_SECRET, (error, decoded) => {
+        if (error) return res.json(401, { message: 'Token inválido' })
+
+        if (decoded.profile != 'manager') return res.json(403, { message: 'Restrito à Managers' })
+        next()
+    })
+}

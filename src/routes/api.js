@@ -13,6 +13,7 @@ const routes = (server) => {
     /*
     *   LOGIN
     */
+
     server.post('/auth', authController.login)
 
     /*
@@ -36,7 +37,8 @@ const routes = (server) => {
     *   PRODUTO
     */
 
-    server.post('/item', profile.isOwner, itemController.store)
+    // Precisa ser Owner OU Manager
+    server.post('/item', profile.isOwner, profile.isManager, itemController.store)
 }
 
 module.exports = routes
