@@ -47,7 +47,7 @@ exports.storePhoto = async (req, res) => {
             id: joi.string().guid('uuidv4')
         })
 
-        const data = await joi.validate(req.body, establishmentSchema)
+        const data = await joi.validate(req.params, establishmentSchema)
 
         const filename = await uuid().toString() + '.jpg'
         /*const bucketName = 'project-img-bucket'
