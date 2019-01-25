@@ -7,10 +7,12 @@ const profile = require('../middleware/profile')
 const authController = require('../controllers/authController')
 const userController = require('../controllers/userController')
 const establishmentController = require('../controllers/establishmentController')
-const productController = require('../controllers/productController')
+const itemController = require('../controllers/itemController')
 
 const routes = (server) => {
-    // Login
+    /*
+    *   LOGIN
+    */
     server.post('/auth', authController.login)
 
     /*
@@ -34,7 +36,7 @@ const routes = (server) => {
     *   PRODUTO
     */
 
-    server.post('/product', profile.isOwner, productController.store)
+    server.post('/item', profile.isOwner, itemController.store)
 }
 
 module.exports = routes
