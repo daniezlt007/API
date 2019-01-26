@@ -16,8 +16,9 @@
     "jsonwebtoken": "^8.4.0",
     "knex": "^0.16.3",
     "mysql": "^2.16.0",
-    "restify": "^7.3.0",
+    "restify": "^7.6.0",
     "restify-cors-middleware": "^1.1.1",
     "uuid": "^3.3.2"
-  }
+  },
+  "devDependencies": {}
 }
