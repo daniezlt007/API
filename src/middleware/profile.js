@@ -16,7 +16,7 @@ exports.isAuthenticate = (req, res, next) => {
     })
 }
 
-/*// Rota restrita à Owners
+// Rota restrita à Owners
 exports.isOwner = (req, res, next) => {
     const token = req.headers['x-access-token']
 
@@ -42,15 +42,10 @@ exports.isManager = (req, res, next) => {
         if (decoded.profile != 'manager') return res.json(403, { message: 'Restrito à Managers' })
         next()
     })
-}*/
+}
 
 
 // Testes
-module.exports = (access) => (req, res, next) => ({
-    isOwner: (req, res, next) => {
-        console.log(access)
-    },
-    isManager: (req, res, next) => {
-        // TODO
-    }
-})
+exports.access = (profile) => (req, res, next) => {
+    console.log(profile)
+}
