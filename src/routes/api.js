@@ -27,17 +27,16 @@ const routes = (server) => {
     *   ESTABELECIMENTO
     */
 
+    // Acesso APENAS para Owner
     server.post('/establishment', profile.isOwner, establishmentController.store)
-    // Cadastra o logotipo
     server.post('/establishment/photo', profile.isOwner, establishmentController.storePhoto)
-    // Deleta o logotipo
     server.del('/establishment/:id/photo', profile.isOwner, establishmentController.deletePhoto)
 
     /*
     *   PRODUTO
     */
 
-    // Precisa ser Owner OU Manager
+    // Acesso APENAS para Owner OU Manager
     server.post('/item', [profile.isOwner, profile.isManager], itemController.store)
 }
 
