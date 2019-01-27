@@ -37,7 +37,7 @@ const routes = (server) => {
     */
 
     // Acesso APENAS para Owner OU Manager
-    server.post('/item', profile.access('isOwner', 'isManager'), itemController.store)
+    server.post('/item', profile.access('owner', 'manager'), itemController.store)
 }
 
 module.exports = routes

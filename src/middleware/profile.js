@@ -46,6 +46,16 @@ exports.isManager = (req, res, next) => {
 
 
 // Testes
-exports.access = (profile) => (req, res, next) => {
-    console.log(profile)
+exports.access = (...profile) => (req, res, next) => {
+    const token = req.headers['x-access-token']
+
+    if (!token) return res.json(401, { message: 'Token não fornecido' })
+
+    return jwt.verify(token, JWT_SECRET, (error, decoded) => {
+        if (error) return res.json(401, { message: 'Token inválido' })
+
+        if (decoded.profile === profile[0] || decoded.profile === profile[1]) return next()
+
+        return res.json(403, { message: 'Nível de acesso não aceito' })
+    })
 }
