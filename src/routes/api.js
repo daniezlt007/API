@@ -38,7 +38,7 @@ const routes = (server) => {
     */
 
     // Precisa ser Owner OU Manager
-    server.post('/item', profile.permit('owner', 'manager'), itemController.store)
+    server.post('/item', ['owner', 'manager'], itemController.store)
 }
 
 module.exports = routes

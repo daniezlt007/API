@@ -43,15 +43,3 @@ exports.isManager = (req, res, next) => {
         next()
     })
 }
-
-// TESTES
-exports.permit = (req, res, next) => {
-    /*const token = req.headers['x-access-token']
-
-    if (!token) return res.json(401, { message: 'Token não fornecido' })
-
-    return jwt.verify(token, JWT_SECRET, (error) => {
-        if (error) return res.json(401, { message: 'Token inválido' })
-        next()
-    })*/
-}
