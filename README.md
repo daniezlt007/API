@@ -1,4 +1,5 @@
 #### Atenção: Projeto ainda em desenvolvimento
+### Aceito Pull Requests :D
 
 - **Baseado nos vídeos do Vedovelli e Balta.io**
 
