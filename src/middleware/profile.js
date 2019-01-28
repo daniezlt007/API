@@ -54,6 +54,7 @@ exports.access = (...profile) => (req, res, next) => {
     return jwt.verify(token, JWT_SECRET, (error, decoded) => {
         if (error) return res.json(401, { message: 'Token inválido' })
 
+        // nível owner ou manager
         if (decoded.profile === profile[0] || decoded.profile === profile[1]) return next()
 
         return res.json(403, { message: 'Nível de acesso não aceito' })
