@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 
 const JWT_SECRET = process.env.JWT_SECRET
 
-// Precisa estar autenticado para acessar tal rota
+// Precisa estar autenticado em qualquer nível, para acessar a rota
 exports.isAuthenticate = (req, res, next) => {
     const token = req.headers['x-access-token']
 
@@ -16,36 +16,7 @@ exports.isAuthenticate = (req, res, next) => {
     })
 }
 
-// Rota restrita à Owners
-exports.isOwner = (req, res, next) => {
-    const token = req.headers['x-access-token']
-
-    if (!token) return res.json(401, { message: 'Token não fornecido' })
-
-    return jwt.verify(token, JWT_SECRET, (error, decoded) => {
-        if (error) return res.json(401, { message: 'Token inválido' })
-
-        if (decoded.profile != 'owner') return res.json(403, { message: 'Restrito à Owners' })
-        next()
-    })
-}
-
-// Rota restrita à Managers
-exports.isManager = (req, res, next) => {
-    const token = req.headers['x-access-token']
-
-    if (!token) return res.json(401, { message: 'Token não fornecido' })
-
-    return jwt.verify(token, JWT_SECRET, (error, decoded) => {
-        if (error) return res.json(401, { message: 'Token inválido' })
-
-        if (decoded.profile != 'manager') return res.json(403, { message: 'Restrito à Managers' })
-        next()
-    })
-}
-
-
-// Testes
+// Precisa estar autenticado em níveis específicos, para acessar a rota
 exports.access = (...profile) => (req, res, next) => {
     const token = req.headers['x-access-token']
 
@@ -54,9 +25,16 @@ exports.access = (...profile) => (req, res, next) => {
     return jwt.verify(token, JWT_SECRET, (error, decoded) => {
         if (error) return res.json(401, { message: 'Token inválido' })
 
-        // nível owner ou manager
+        // Quando na rota é passado 1 nível de acesso, exemplo: ('owner')
+        if (profile.length === 1) {
+            if (decoded.profile != profile[0]) return res.json(403, { message: 'Acesso restrito a ' + profile[0]})
+
+            return next()
+        }
+
+        // Quando na rota é passado 2 níveis de acesso, exemplo: ('owner', 'manager')
         if (decoded.profile === profile[0] || decoded.profile === profile[1]) return next()
 
-        return res.json(403, { message: 'Nível de acesso não aceito' })
+        return res.json(403, { message: 'Acesso restrito a ' + profile[0] + ' ou ' + profile[1]})
     })
 }

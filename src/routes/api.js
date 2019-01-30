@@ -28,9 +28,9 @@ const routes = (server) => {
     */
 
     // Acesso APENAS para Owner
-    server.post('/establishment', profile.isOwner, establishmentController.store)
-    server.post('/establishment/photo', profile.isOwner, establishmentController.storePhoto)
-    server.del('/establishment/:id/photo', profile.isOwner, establishmentController.deletePhoto)
+    server.post('/establishment', profile.access('owner'), establishmentController.store)
+    server.post('/establishment/photo', profile.access('owner'), establishmentController.storePhoto)
+    server.del('/establishment/:id/photo', profile.access('owner'), establishmentController.deletePhoto)
 
     /*
     *   PRODUTO
