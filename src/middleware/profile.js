@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const JWT_SECRET = process.env.JWT_SECRET
 
 // Precisa estar autenticado em qualquer nível, para acessar a rota
-exports.isAuthenticate = (req, res, next) => {
+/*exports.isAuthenticate = (req, res, next) => {
     const token = req.headers['x-access-token']
 
     if (!token) return res.json(401, { message: 'Token não fornecido' })
@@ -14,13 +14,13 @@ exports.isAuthenticate = (req, res, next) => {
         if (error) return res.json(401, { message: 'Token inválido' })
         next()
     })
-}
+}*/
 
 // Precisa estar autenticado em níveis específicos, para acessar a rota
 exports.access = (...profile) => (req, res, next) => {
-    const token = req.headers['x-access-token']
+    const token = req.headers['authorization']
 
-    if (!token) return res.json(401, { message: 'Token não fornecido' })
+    //if (!token) return res.json(401, { message: 'Token não fornecido' })
 
     return jwt.verify(token, JWT_SECRET, (error, decoded) => {
         if (error) return res.json(401, { message: 'Token inválido' })
@@ -35,6 +35,6 @@ exports.access = (...profile) => (req, res, next) => {
         // Quando na rota é passado 2 níveis de acesso, exemplo: ('owner', 'manager')
         if (decoded.profile === profile[0] || decoded.profile === profile[1]) return next()
 
-        return res.json(403, { message: 'Acesso restrito a ' + profile[0] + ' ou ' + profile[1]})
+        return res.json(403, { message: 'Acesso restrito a ' + profile[0] + ' e ' + profile[1]})
     })
 }

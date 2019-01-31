@@ -1,12 +1,18 @@
 'use strict'
 
+const rjwt = require('restify-jwt-community')
+const config = require('./config')
 const cors = require('./cors')
 const restify = require('restify')
-const rjwt = require('restify-jwt-community')
 const app = restify.createServer()
 const routes = require('../src/routes/api')
 
-const config = require('./config')
+app.use(rjwt(config.jwt).unless({
+    path: [
+        { url: '/auth', method: 'POST' },
+        { url: '/user', method: 'POST' }
+    ]
+}))
 
 // CORS
 app.pre(cors.preflight)
@@ -16,13 +22,6 @@ app.use(cors.actual)
 app.use(restify.plugins.acceptParser(app.acceptable))
 app.use(restify.plugins.queryParser())
 app.use(restify.plugins.bodyParser())
-
-app.use(rjwt(config.jwt).unless({
-    path: [
-        '/auth', { method: 'POST' },
-        '/user', { method: 'POST' }
-    ]
-}))
 
 // Carrega todas as rotas
 routes(app)
