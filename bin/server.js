@@ -2,19 +2,19 @@
 
 const cors = require('./cors')
 const restify = require('restify')
-const server = restify.createServer()
+const app = restify.createServer()
 const routes = require('../src/routes/api')
 
 // CORS
-server.pre(cors.preflight)
-server.use(cors.actual)
+app.pre(cors.preflight)
+app.use(cors.actual)
 
 // Restify
-server.use(restify.plugins.acceptParser(server.acceptable))
-server.use(restify.plugins.queryParser())
-server.use(restify.plugins.bodyParser())
+app.use(restify.plugins.acceptParser(app.acceptable))
+app.use(restify.plugins.queryParser())
+app.use(restify.plugins.bodyParser())
 
 // Carrega todas as rotas
-routes(server)
+routes(app)
 
-module.exports = server
+module.exports = app
