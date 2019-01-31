@@ -5,7 +5,7 @@ const uuid = require('uuid/v4')
 //const repository = require('../repositories/itemRepository')
 const auth = require('../services/auth')
 
-exports.store = (req, res) => {
+exports.store = async (req, res) => {
     try {
         const itemSchema = joi.object().keys({
             establishment_id: joi.string().guid('uuidv4'),
