@@ -1,13 +1,12 @@
 'use strict'
 
-const rjwt = require('restify-jwt-community')
-const config = require('./config')
+const jwt = require('express-jwt')
 const cors = require('./cors')
 const restify = require('restify')
 const app = restify.createServer()
 const routes = require('../src/routes/api')
 
-app.use(rjwt(config.jwt).unless({
+app.use(jwt({ secret: process.env.JWT_SECRET }).unless({
     path: [
         { url: '/auth', method: 'POST' },
         { url: '/user', method: 'POST' }
