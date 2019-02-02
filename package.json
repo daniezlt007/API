@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "API RESTful",
   "version": "1.0.0",
   "description": "API RESTful",
   "main": "index.js",
@@ -12,7 +12,6 @@
     "aws-sdk": "^2.391.0",
     "bcrypt": "^3.0.3",
     "dotenv": "^6.2.0",
-    "express-jwt": "^5.3.1",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.4.0",
     "knex": "^0.16.3",

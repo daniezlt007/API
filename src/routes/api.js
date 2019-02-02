@@ -21,7 +21,7 @@ const routes = (app) => {
     */
 
     app.post('/user', userController.store)
-    app.put('/user', userController.edit)
+    app.put('/user', profile.isAuthenticate, userController.edit)
 
     /*
     *   ESTABELECIMENTO
