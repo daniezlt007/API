@@ -16,7 +16,6 @@ exports.access = (...profiles) => (req, res, next) => {
           return res.json(401, { message: 'Token inválido' })
         }
 
-        console.log(profiles)
         if (profiles.length === 0 || profiles.includes(decoded.profile)) {
             return next()
         }
