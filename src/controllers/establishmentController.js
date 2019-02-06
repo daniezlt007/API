@@ -61,13 +61,13 @@ exports.storePhoto = async (req, res) => {
         }
 
         // S3
-        const bucketName = 'project-img-bucket'
-        let rawdata = data.photo
-        let matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)
-        let fileType = matches[1]
-        let buffer = new Buffer(matches[2], 'base64')
+        const bucketName = 'project-images-establishment'
+        const rawdata = data.photo
+        const matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)
+        const fileType = matches[1]
+        const buffer = new Buffer(matches[2], 'base64')
 
-        let s3Params = {
+        const s3Params = {
             Bucket: bucketName,
             Key: fileName,
             Body: buffer,
@@ -76,13 +76,13 @@ exports.storePhoto = async (req, res) => {
             ACL: 'public-read'
         }
 
-        // Envia a foto para o bucket
-        await s3.putObject(s3Params)
-
         // Faz o update no banco (apenas o nome da foto .jpg)
         await repository.storePhoto(establishment)
 
-        return res.json(201, { message: 'Foto enviada com sucesso' })
+        // Envia a foto para o bucket
+        await s3.putObject(s3Params)
+
+        return res.json(201, { message: 'Foto cadastrada com sucesso' })
     } catch(error) {
         console.error(error)
         return res.json(400, { message: error.message })
@@ -106,17 +106,18 @@ exports.deletePhoto = async (req, res) => {
             photo: data.photo // Foto
         }
 
-        await repository.deletePhoto(establishment)
+        const bucketName = 'project-images-establishment'
 
-        /*let bucketName = 'project-img-bucket'
-
-        let s3Params = {
+        const s3Params = {
             Bucket: bucketName,
             Key: data.photo
-        }*/
+        }
 
         // Deleta a foto do bucket
-        //await s3.deleteObject(s3Params)
+        await s3.deleteObject(s3Params)
+
+        // Faz o update no banco (NULL)
+        await repository.deletePhoto(establishment)
 
         return res.json(200, { message: 'Foto deletada com sucesso' })
     } catch(error) {
