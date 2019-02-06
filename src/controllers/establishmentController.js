@@ -49,8 +49,19 @@ exports.storePhoto = async (req, res) => {
 
         const data = await joi.validate(req.params, establishmentSchema)
 
+        const token = await auth.decodeToken(req.headers['authorization'])
+
+        // Gera um nome para a foto
         const filename = await uuid().toString() + '.jpg'
-        /*const bucketName = 'project-img-bucket'
+
+        const establishment = {
+            id: data.id, // ID do estabelecimento
+            person_id: token.id, // ID do usuário
+            photo: filename // Foto
+        }
+
+        // S3
+        const bucketName = 'project-img-bucket'
         let rawdata = data.photo
         let matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)
         let fileType = matches[1]
@@ -63,20 +74,12 @@ exports.storePhoto = async (req, res) => {
             ContentEncoding: 'base64',
             ContentType: fileType,
             ACL: 'public-read'
-        }*/
-
-        // Envia a foto para o bucket
-        //await s3.putObject(s3Params)
-
-        const token = await auth.decodeToken(req.headers['authorization'])
-
-        const establishment = {
-            id: data.id, // ID do estabelecimento
-            person_id: token.id, // ID do usuário
-            photo: filename // Foto
         }
 
-        // Faz o update no banco
+        // Envia a foto para o bucket
+        await s3.putObject(s3Params)
+
+        // Faz o update no banco (apenas o nome da foto .jpg)
         await repository.storePhoto(establishment)
 
         return res.json(201, { message: 'Foto enviada com sucesso' })
