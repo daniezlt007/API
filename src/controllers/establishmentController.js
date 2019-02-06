@@ -1,13 +1,12 @@
 'use strict'
 
+require('dotenv').config()
+
 const joi = require('joi')
 const uuid = require('uuid/v4')
 const repository = require('../repositories/establishmentRepository')
 const auth = require('../services/auth')
-
-// AWS S3
-require('dotenv').config()
-//const s3 = require('aws-sdk/clients/s3')
+const s3 = require('aws-sdk/clients/s3')
 
 exports.store = async (req, res) => {
     try {
@@ -20,7 +19,6 @@ exports.store = async (req, res) => {
 
         const data = await joi.validate(req.body, establishmentSchema)
         const id = await uuid()
-
         const token = await auth.decodeToken(req.headers['authorization'])
 
         const establishment = {
@@ -34,7 +32,7 @@ exports.store = async (req, res) => {
 
         await repository.create(establishment)
 
-        return res.json(201, { message: 'Estabelecimento criado com sucesso' })
+        return res.json(201, { message: 'Estabelecimento cadastrado com sucesso' })
     } catch(error) {
         console.error(error)
         return res.json(400, { message: error.message })
@@ -48,28 +46,25 @@ exports.storePhoto = async (req, res) => {
         })
 
         const data = await joi.validate(req.params, establishmentSchema)
-
         const token = await auth.decodeToken(req.headers['authorization'])
-
-        // Gera um nome para a foto
-        const filename = await uuid().toString() + '.jpg'
+        const name = await uuid().toString() + '.jpg'
 
         const establishment = {
             id: data.id, // ID do estabelecimento
             person_id: token.id, // ID do usuário
-            photo: filename // Foto
+            photo: name // Nome da foto
         }
 
         // S3
-        const bucketName = 'project-images-establishment'
+        const bucket = 'project-images-establishment'
         const rawdata = data.photo
         const matches = rawdata.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/)
         const fileType = matches[1]
         const buffer = new Buffer(matches[2], 'base64')
 
         const s3Params = {
-            Bucket: bucketName,
-            Key: fileName,
+            Bucket: bucket,
+            Key: name,
             Body: buffer,
             ContentEncoding: 'base64',
             ContentType: fileType,
@@ -97,19 +92,18 @@ exports.deletePhoto = async (req, res) => {
         })
 
         const data = await joi.validate(req.body, establishmentSchema)
-
         const token = await auth.decodeToken(req.headers['authorization'])
 
         const establishment = {
             id: data.id, // ID do estabelecimento
             person_id: token.id, // ID do usuário
-            photo: data.photo // Foto
+            photo: data.photo // Nome da foto
         }
 
-        const bucketName = 'project-images-establishment'
+        const bucket = 'project-images-establishment'
 
         const s3Params = {
-            Bucket: bucketName,
+            Bucket: bucket,
             Key: data.photo
         }
 

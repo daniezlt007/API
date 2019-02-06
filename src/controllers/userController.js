@@ -18,6 +18,7 @@ exports.store = async (req, res) => {
 
         const data = await joi.validate(req.body, userSchema)
         const id = await uuid()
+        const token = await auth.generateToken({ id, profile: 'client' })
         const hash = await bcrypt.hash(data.password, 10)
 
         const user = {
@@ -31,9 +32,7 @@ exports.store = async (req, res) => {
 
         await repository.create(user)
 
-        return res.json(201, {
-            token: await auth.generateToken({ id, profile: 'client' })
-        })
+        return res.json(201, { token: token })
     } catch(error) {
         console.error(error)
         return res.json(400, { message: error.message })
@@ -49,8 +48,6 @@ exports.edit = async (req, res) => {
         })
 
         const data = await joi.validate(req.body, userSchema)
-
-        // Pega o UUID do usuário
         const token = await auth.decodeToken(req.headers['authorization'])
 
         const user = {

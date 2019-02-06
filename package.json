@@ -9,7 +9,7 @@
   "author": "Jonathan Silva",
   "license": "MIT",
   "dependencies": {
-    "aws-sdk": "^2.391.0",
+    "aws-sdk": "^2.397.0",
     "bcrypt": "^3.0.3",
     "dotenv": "^6.2.0",
     "joi": "^14.3.1",
