@@ -19,7 +19,7 @@ exports.store = async (req, res) => {
         const data = await joi.validate(req.body, itemSchema)
         const id = await uuid()
 
-        const token = await auth.decodeToken(req.headers['x-access-token'])
+        const token = await auth.decodeToken(req.headers['authorization'])
 
         const item = {
             id: id, // ID do item

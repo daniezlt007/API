@@ -21,7 +21,7 @@ exports.store = async (req, res) => {
         const data = await joi.validate(req.body, establishmentSchema)
         const id = await uuid()
 
-        const token = await auth.decodeToken(req.headers['x-access-token'])
+        const token = await auth.decodeToken(req.headers['authorization'])
 
         const establishment = {
             id: id, // ID do estabelecimento
@@ -68,7 +68,7 @@ exports.storePhoto = async (req, res) => {
         // Envia a foto para o bucket
         //await s3.putObject(s3Params)
 
-        const token = await auth.decodeToken(req.headers['x-access-token'])
+        const token = await auth.decodeToken(req.headers['authorization'])
 
         const establishment = {
             id: data.id, // ID do estabelecimento
@@ -95,7 +95,7 @@ exports.deletePhoto = async (req, res) => {
 
         const data = await joi.validate(req.body, establishmentSchema)
 
-        const token = await auth.decodeToken(req.headers['x-access-token'])
+        const token = await auth.decodeToken(req.headers['authorization'])
 
         const establishment = {
             id: data.id, // ID do estabelecimento
