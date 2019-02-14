@@ -19,10 +19,10 @@ exports.login = async (req, res) => {
         }
 
         const user = await repository.login(credentials)
-        const { id, establishment_id, profile, nickname } = user[0]
+        const { id, nickname } = user[0]
 
         return res.json(200, {
-            token: await auth.generateToken({ id, establishment_id, profile }),
+            token: await auth.generateToken({ id }),
             nickname: nickname
         })
     } catch (error) {

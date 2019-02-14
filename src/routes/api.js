@@ -21,23 +21,45 @@ const routes = (app) => {
     */
 
     app.post('/user', userController.store)
-    app.put('/user', profile.access(), userController.edit)
+    app.put('/user', profile.isAuthenticate(), userController.edit)
 
     /*
     *   ESTABELECIMENTO
     */
 
-    // Acesso APENAS para Owner
-    app.post('/establishment', profile.access('owner'), establishmentController.store)
-    app.post('/establishment/photo', profile.access('owner'), establishmentController.storePhoto)
-    app.del('/establishment/:id/photo', profile.access('owner'), establishmentController.deletePhoto)
+    // Acesso APENAS para Subscriber
+    app.post('/establishment', profile.isAuthenticate(), establishmentController.store)
+    app.post('/establishment/photo', profile.isAuthenticate(), establishmentController.storePhoto)
+    app.del('/establishment/:id/photo', profile.isAuthenticate(), establishmentController.deletePhoto)
 
     /*
     *   PRODUTO
     */
 
+    //app.get('/item/:id', profile.isAuthenticate(), itemController.all)
+
     // Acesso APENAS para Owner ou Manager
-    app.post('/item', profile.access('owner', 'manager'), itemController.store)
+    app.post('/item', profile.isAuthenticate(), itemController.store)
+    /*app.post('/item/:id/photo', profile.isAuthenticate(), itemController.storePhoto)
+    app.put('/item/:id', profile.isAuthenticate(), itemController.editItem)
+    app.del('/item/:id', profile.isAuthenticate(), itemController.deleteItem)
+    app.del('/item/:id/photo/:id', profile.isAuthenticate(), itemController.deletePhoto)*/
+
+    /*
+    *   GERENTE
+    */
+
+    // Acesso APENAS para Owner
+    /*app.post('/manager', profile.isAuthenticate(), managerController.store)
+    app.del('/manager/:id', profile.isAuthenticate(), managerController.deleteManager)*/
+
+    /*
+    *   ATENDENTE
+    */
+
+    // Acesso APENAS para Owner ou Manager
+    /*app.post('/attendant', profile.isAuthenticate(), attendantController.store)
+    app.del('/attendant/:id', profile.isAuthenticate(), attendantController.deleteAttendant)*/
 }
 
 module.exports = routes

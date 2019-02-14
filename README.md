@@ -1,5 +1,5 @@
 #### Atenção: Projeto ainda em desenvolvimento
-- **Aceito Pull Requests**
+- **Projeto fictício - Nano Mercado Livre =D**
 
 - **Baseado nos vídeos do Vedovelli e Balta.io**
 
